@@ -34,9 +34,37 @@ Let's remember the first coding challenge where Mark and John compared their BMI
         console.log('Is Mark\'s BMI higher than John\'s? ' + markHigherBMI);
 
 1. For each of them, create an object with properties for their full name, mass, and height
+*/
 
+var mark = {
+    fullName: 'Mark Sachez',
+    mass: 78,
+    height: 2.1,
+    calculateBmi: function () {
+        this.bmi = this.mass / (this.height * this.height);
+        return this.bmi;
+    }
+};
 
+var john = {
+    fullName: 'John Smith',
+    mass: 78,
+    height: 2.1,
+    calculateBmi: function () {
+        this.bmi = this.mass / (this.height * this.height);
+        return this.bmi;
+    }
+};
 
+if(mark.calculateBmi() > john.calculateBmi()){
+    console.log(mark.fullName + 'Has higher BMI : ' + mark.bmi);
+} else if (mark.calculateBmi() < john.calculateBmi()) {
+    console.log(john.fullName + 'Has higher BMI : ' + john.bmi);
+} else {
+    console.log('Both have the same BMI')
+}
+
+        /*
 2. Then, add a method to each object to calculate the BMI. Save the BMI to the object and also return it from the method.
 3. In the end, log to the console who has the highest BMI, together with the full name and the respective BMI. Don't forget they might have the same BMI.
 
