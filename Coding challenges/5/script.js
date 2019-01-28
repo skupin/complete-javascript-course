@@ -16,20 +16,21 @@ Implement a tip calculator using objects and loops:
 
 var john = {
     bills: [124, 48, 268, 180, 42],
-    tips: [],
-    finalPaid: [],
     calcTips: function () {
-        var prc;
+        this.tips = [];
+        this.finalPaid = [];
+        var prc = 0;
         for (var i = 0; i < this.bills.length; i++){
-            if(this.bills[i] < 50){
+            var bill = this.bills[i];
+            if(bill < 50){
                 prc = 0.2;
-            } else if (this.bills[i] >= 50 && this.bills[i] < 200) {
+            } else if (bill >= 50 && bill < 200) {
                 prc = 0.15;
             } else {
                 prc = 0.1;
             }
-            this.tips[i] = this.bills[i] * prc;
-            this.finalPaid[i] = this.tips[i] + this.bills[i];
+            this.tips[i] = bill * prc;
+            this.finalPaid[i] = this.tips[i] + bill;
         }
     }
 };
@@ -47,20 +48,21 @@ Mark likes to tip 20% of the bill when the bill is less than $100, 10% when the 
 
 var mark = {
     bills: [77, 375, 110, 45],
-    tips: [],
-    finalPaid: [],
     calcTips: function () {
-        var prc;
+        this.tips = [];
+        this.finalPaid = [];
+        var prc = 0;
         for (var i = 0; i < this.bills.length; i++){
-            if(this.bills[i] < 100){
+            var bill = this.bills[i];
+            if(bill < 100){
                 prc = 0.2;
-            } else if (this.bills[i] >= 100 && this.bills[i] < 300) {
+            } else if (bill >= 100 && bill < 300) {
                 prc = 0.1;
             } else {
                 prc = 0.25;
             }
-            this.tips[i] = this.bills[i] * prc;
-            this.finalPaid[i] = this.tips[i] + this.bills[i];
+            this.tips[i] = bill * prc;
+            this.finalPaid[i] = this.tips[i] + bill;
         }
     }
 };
