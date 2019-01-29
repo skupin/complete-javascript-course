@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var score, activePlayer, roundScore, diceNumber, gamePlaying;
+var score, activePlayer, roundScore, diceNumber, gamePlaying, previousRoll;
 
 init();
 
@@ -18,6 +18,7 @@ function init(){
     activePlayer = 0;
     roundScore = 0;
     diceNumber = 0;
+    previousRoll = 0;
     gamePlaying = true;
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
@@ -37,11 +38,16 @@ function init(){
 document.querySelector('.btn-roll').addEventListener('click',function(){
     if (gamePlaying){
         document.querySelector('.dice').style.display = 'block';
-        var dice = Math.floor(Math.random() * 6) + 1;
-        document.querySelector('.dice').src = 'dice-' + dice + '.png';
-        if (dice > 1){
-            roundScore += dice;
+        diceNumber = Math.floor(Math.random() * 6) + 1;
+        document.querySelector('.dice').src = 'dice-' + diceNumber + '.png';
+        if(previousRoll === 6 && diceNumber === 6){
+            score[activePlayer] = 0;
+            document.querySelector('#score-' + activePlayer).textContent = '0';
+            nextPlayer();
+        } else if (diceNumber !== 1){
+            roundScore += diceNumber;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
+            previousRoll = diceNumber;
         } else {
             nextPlayer();
         }
@@ -73,7 +79,15 @@ function nextPlayer(){
     document.querySelector('.player-1-panel').classList.toggle('active');
     document.querySelector('#current-0').textContent = '0';
     document.querySelector('#current-1').textContent = '0';
-    //document.querySelector('.dice').style.display = 'none';
+    previousRoll = 0;
+    document.querySelector('.dice').style.display = 'none';
 
-};
+}
+/*
+YOUR 3 CHALLENGES
+Change the game to follow these rules:
 
+1. A player looses his ENTIRE score when he rolls two 6 in a row. After that, it's the next player's turn. (Hint: Always save the previous dice roll in a separate variable)
+2. Add an input field to the HTML where players can set the winning score, so that they can change the predefined score of 100. (Hint: you can read that value with the .value property in JavaScript. This is a good oportunity to use google to figure this out :)
+3. Add another dice to the game, so that there are two dices now. The player looses his current score when one of them is a 1. (Hint: you will need CSS to position the second dice, so take a look at the CSS code for the first one.)
+*/
