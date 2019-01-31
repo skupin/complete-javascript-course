@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var score, activePlayer, roundScore, diceNumber, gamePlaying, previousRoll;
+var score, activePlayer, roundScore, diceNumber, diceNumberTwo, gamePlaying, previousRoll;
 
 init();
 
@@ -30,6 +30,7 @@ function init(){
     document.querySelector('#current-0').textContent = '0';
     document.querySelector('#current-1').textContent = '0';
     document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.second-dice').style.display = 'none';
     document.getElementById('name-0').textContent = 'Player 1';
     document.getElementById('name-1').textContent = 'Player 2';
 }
@@ -38,14 +39,17 @@ function init(){
 document.querySelector('.btn-roll').addEventListener('click',function(){
     if (gamePlaying){
         document.querySelector('.dice').style.display = 'block';
+        document.querySelector('.second-dice').style.display = 'block';
         diceNumber = Math.floor(Math.random() * 6) + 1;
+        diceNumberTwo = Math.floor(Math.random() * 6) + 1;
         document.querySelector('.dice').src = 'dice-' + diceNumber + '.png';
+        document.querySelector('.second-dice').src = 'dice-' + diceNumberTwo + '.png';
         if(previousRoll === 6 && diceNumber === 6){
             score[activePlayer] = 0;
             document.querySelector('#score-' + activePlayer).textContent = '0';
             nextPlayer();
-        } else if (diceNumber !== 1){
-            roundScore += diceNumber;
+        } else if (diceNumber !== 1 && diceNumberTwo !== 1){
+            roundScore += diceNumber + diceNumberTwo;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
             previousRoll = diceNumber;
         } else {
@@ -58,7 +62,7 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
     if (gamePlaying){
         score[activePlayer] += roundScore;
         document.querySelector('#score-' + activePlayer).textContent = score[activePlayer];
-        if (score[activePlayer] >= 20){
+        if (score[activePlayer] >= document.querySelector('.score').value){
             document.querySelector('.player-' + activePlayer + '-panel').classList.toggle('active');
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
             document.getElementById('name-' + activePlayer).textContent = 'Winner!!';
